@@ -21,6 +21,10 @@ $(document).ready(function() {
 
     // Select the random sequence
     function nextSequence() {
+
+        // Once nextSequence() is triggered, reset the userClickedPattern to an empty array ready for the next level.
+        userClickedPattern = [];
+        
         // Increase the level
         level++;
 
@@ -43,9 +47,8 @@ $(document).ready(function() {
         // Play the sound to the random button
         playSound(randomChoosenColour);
 
-        // Reset user clicked array to 0 for the next level
-        userClickedPattern = [];
         
+
         return false;
     }
     
@@ -54,11 +57,10 @@ $(document).ready(function() {
     $(".btn").click(function(){
         var userChoosenColour = $(this).attr("id");
         userClickedPattern.push(userChoosenColour);
-        var userMostRecentAnswer =  userClickedPattern[userClickedPattern.length -1];
 
         playSound(userChoosenColour);
         animatePress(userChoosenColour);
-        checkAnswer(userMostRecentAnswer);
+        checkAnswer(userClickedPattern.length -1);
     })
 
     // Plays the right song for each colour
@@ -78,9 +80,9 @@ $(document).ready(function() {
 
     // Check the user's answer
     function checkAnswer(currentLevel) {
-        if (currentLevel === gamePattern[gamePattern.length-1]){
+        if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
             console.log("right")
-            if (gamePattern.length === userChoosenColour.length){
+            if (gamePattern.length === userClickedPattern.length){
                 setTimeout(function(){nextSequence();}, 1000)
             }
         } else {console.log("wrong")}
