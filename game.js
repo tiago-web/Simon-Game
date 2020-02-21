@@ -24,7 +24,7 @@ $(document).ready(function() {
 
         // Once nextSequence() is triggered, reset the userClickedPattern to an empty array ready for the next level.
         userClickedPattern = [];
-        
+
         // Increase the level
         level++;
 
@@ -81,14 +81,25 @@ $(document).ready(function() {
     // Check the user's answer
     function checkAnswer(currentLevel) {
         if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
-            console.log("right")
             if (gamePattern.length === userClickedPattern.length){
                 setTimeout(function(){nextSequence();}, 1000)
             }
-        } else {console.log("wrong")}
+        } else {
+            var wrong = new Audio("sounds/wrong.mp3");
+            wrong.play();
+            $("body").addClass("game-over");
+            setTimeout(function(){$("body").removeClass("game-over")}, 200)
+            $("#level-title").text("Game Over, Press Any Key to Restart")
+            startOver();
+        }
 
         return false;
     }
 
+    function startOver() {
+        start = false;
+        level = 0;
+        gamePattern = [];
+    }
     
 });
