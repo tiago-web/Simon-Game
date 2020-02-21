@@ -47,7 +47,7 @@ $(document).ready(function() {
     
     
     // Store in the array the button clicked by the user
-    $("div").click(function(){
+    $(".btn").click(function(){
         var userChoosenColour = $(this).attr("id");
         userClickedPattern.push(userChoosenColour);
 
@@ -73,7 +73,6 @@ $(document).ready(function() {
 
     // Check the user's answer
     function checkAnswer(currentLevel) {
-
         if (currentLevel === gamePattern[gamePattern.length-1]){
             console.log("right")
         } else {console.log("wrong")}
