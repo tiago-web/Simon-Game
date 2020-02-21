@@ -42,6 +42,10 @@ $(document).ready(function() {
 
         // Play the sound to the random button
         playSound(randomChoosenColour);
+
+        // Reset user clicked array to 0 for the next level
+        userClickedPattern = [];
+        
         return false;
     }
     
@@ -50,10 +54,11 @@ $(document).ready(function() {
     $(".btn").click(function(){
         var userChoosenColour = $(this).attr("id");
         userClickedPattern.push(userChoosenColour);
+        var userMostRecentAnswer =  userClickedPattern[userClickedPattern.length -1];
 
         playSound(userChoosenColour);
         animatePress(userChoosenColour);
-        checkAnswer(userClickedPattern[userClickedPattern.length -1]);
+        checkAnswer(userMostRecentAnswer);
     })
 
     // Plays the right song for each colour
@@ -75,6 +80,9 @@ $(document).ready(function() {
     function checkAnswer(currentLevel) {
         if (currentLevel === gamePattern[gamePattern.length-1]){
             console.log("right")
+            if (gamePattern.length === userChoosenColour.length){
+                setTimeout(function(){nextSequence();}, 1000)
+            }
         } else {console.log("wrong")}
 
         return false;
